@@ -5,8 +5,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const Login = async () => {
-    console.log("Отправляем:", { email, password });
-
     const res = await fetch("http://localhost:8000/auth/login/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
