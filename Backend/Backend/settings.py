@@ -38,6 +38,8 @@ INSTALLED_APPS = [
 
     # Swagger
     "drf_yasg",
+
+    "corsheaders",
 ]
 
 SITE_ID = 1
@@ -47,6 +49,8 @@ SITE_ID = 1
 # MIDDLEWARE
 # ====================
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +62,13 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True  # для тестов (НЕ на проде)
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",   # React (web)
+    "http://127.0.0.1:3000",
+]
 
 # ====================
 # URLS / WSGI
@@ -171,7 +182,7 @@ REST_FRAMEWORK = {
 
 REST_AUTH = {
   "USE_JWT": True,
-  "JWT_AUTH_HTTPONLY": True,   # безопаснее чем False
+  "JWT_AUTH_HTTPONLY": True,
   "JWT_AUTH_COOKIE": "core-app-auth",
   "JWT_AUTH_REFRESH_COOKIE": "core-refresh-token"
 }
